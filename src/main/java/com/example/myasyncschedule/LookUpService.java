@@ -15,17 +15,19 @@ import java.util.Date;
 
 @Component
 public class LookUpService{
+
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
+    private static  final  String BASE_PATH = "/Users/adityaramya/Projects/java-projects/my-async-schedule/src/main/resources/static/";
 
     @Async
-    public void userFunction(String name) throws NoSuchAlgorithmException {
+    public String userFunction(String name) throws NoSuchAlgorithmException {
 
         MessageDigest md = MessageDigest.getInstance("SHA-256");
 
         byte[] dataBytes = new byte[1024];
         int nread = 0;
-        try (BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream("static/"+name))) {
+        try (BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(BASE_PATH+name))) {
             while ((nread = inputStream.read(dataBytes)) != -1) {
                 md.update(dataBytes, 0, nread);
             }
@@ -51,7 +53,7 @@ public class LookUpService{
                 hexString.append(Integer.toHexString(0xFF & mdbytes[i]));
             }
 
-            System.out.println("Hex format : " + hexString.toString());
+            return hexString.toString();
     }
 
 }

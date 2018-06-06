@@ -20,17 +20,16 @@ public class ExampleScheduler {
     @Autowired
     private LookUpService lookUpService;
 
-    @Autowired
-    private  ThreadPoolTaskScheduler threadPoolTaskScheduler;
 
 
-    @Scheduled(cron = "0 0 * * * *")
+    @Scheduled(cron = "1 * * * * *")
     public void onStartUp(){
         String[] names = {"test1.txt", "test2.txt", "test3.txt" };
         List<String> namesAsList = Arrays.asList(names);
         for (String name: namesAsList) {
             try {
-                lookUpService.userFunction(name);
+                String shaValue = lookUpService.userFunction(name);
+                System.out.println(shaValue);
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
